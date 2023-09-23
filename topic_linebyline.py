@@ -6,13 +6,12 @@ from collections import Counter
 from nltk.corpus import stopwords
 
 stop_words = set(stopwords.words('english'))
-stop_words.add("pair")
+stop_words.update(['pair', 'finance', 'company'])
 
 with open('converted.txt', 'r') as file:
     lines = file.readlines()
 
 def preprocess_text(text):
-    # Tokenize and remove stopwords
     tokens = word_tokenize(text)
     tokens = [word.lower() for word in tokens if word.isalpha() and word.lower() not in stop_words]
     return tokens
@@ -23,8 +22,8 @@ dictionary = corpora.Dictionary(processed_lines)
 corpus = [dictionary.doc2bow(processed_line) for processed_line in processed_lines]
 
 
-lda_model = gensim.models.LdaModel(corpus, num_topics=3, id2word=dictionary)
+lda_model = gensim.models.LdaModel(corpus, num_topics=20, id2word=dictionary)
 
-topics = lda_model.print_topics(num_topics=3, num_words=5)
+topics = lda_model.print_topics(num_topics=20, num_words=5)
 for topic_num, topic in topics:
     print(f"Topic {topic_num + 1}: {topic}")
