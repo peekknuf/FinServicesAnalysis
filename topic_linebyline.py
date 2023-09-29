@@ -24,6 +24,6 @@ corpus = [dictionary.doc2bow(processed_line) for processed_line in processed_lin
 
 lda_model = gensim.models.LdaModel(corpus, num_topics=20, id2word=dictionary)
 
-topics = lda_model.print_topics(num_topics=20, num_words=5)
+topics = lda_model.print_topics(num_topics=20, num_words=3)
 for topic_num, topic in topics:
     print(f"Topic {topic_num + 1}: {topic}")
